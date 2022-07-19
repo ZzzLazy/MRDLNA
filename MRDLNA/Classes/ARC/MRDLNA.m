@@ -8,12 +8,25 @@
 #import "MRDLNA.h"
 #import "StopAction.h"
 
+NSString *const kMRDLNAGetTransportInfoResponseNotification = @"kMRDLNAGetTransportInfoResponseNotification";
+NSString *const kMRDLNASetAVTransportURINotification = @"kMRDLNASetAVTransportURINotification";
+NSString *const kMRDLNAPlayResponseNotification = @"kMRDLNAPlayResponseNotification";
+NSString *const kMRDLNAPauseResponseNotification = @"kMRDLNAPauseResponseNotification";
+NSString *const kMRDLNAStopResponseNotification = @"kMRDLNAStopResponseNotification";
+NSString *const kMRDLNASeekResponseNotification = @"kMRDLNASeekResponseNotification";
+NSString *const kMRDLNAPreviousResponseNotification = @"kMRDLNAPreviousResponseNotification";
+NSString *const kMRDLNANextResponseNotification = @"kMRDLNANextResponseNotification";
+NSString *const kMRDLNASetVolumeResponseNotification = @"kMRDLNASetVolumeResponseNotification";
+NSString *const kMRDLNAGetVolumeResponseNotification = @"kMRDLNAGetVolumeResponseNotification";
+NSString *const kMRDLNASetNextAVTransportURIResponseNotification = @"kMRDLNASetNextAVTransportURIResponseNotification";
+NSString *const kMRDLNAGetPositionInfoResponseNotification = @"kMRDLNAGetPositionInfoResponseNotification";
+NSString *const kMRDLNAUndefinedResponseNotification = @"kMRDLNAUndefinedResponseNotification";
+
 @interface MRDLNA()<CLUPnPServerDelegate, CLUPnPResponseDelegate>
 
 @property(nonatomic,strong) CLUPnPServer *upd;              //MDS服务器
 @property(nonatomic,strong) NSMutableArray *dataArray;
 
-@property(nonatomic,strong) CLUPnPRenderer *render;         //MDR渲染器
 @property(nonatomic,copy) NSString *volume;
 @property(nonatomic,assign) NSInteger seekTime;
 @property(nonatomic,assign) BOOL isPlaying;
@@ -160,6 +173,7 @@
 #pragma mark - CLUPnPResponseDelegate
 - (void)upnpSetAVTransportURIResponse{
     [self.render play];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMRDLNASetAVTransportURINotification object:nil];
 }
 
 - (void)upnpGetTransportInfoResponse:(CLUPnPTransportInfo *)info{
@@ -167,12 +181,57 @@
     if (!([info.currentTransportState isEqualToString:@"PLAYING"] || [info.currentTransportState isEqualToString:@"TRANSITIONING"])) {
         [self.render play];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMRDLNAGetTransportInfoResponseNotification object:info];
 }
 
 - (void)upnpPlayResponse{
     if ([self.delegate respondsToSelector:@selector(dlnaStartPlay)]) {
         [self.delegate dlnaStartPlay];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMRDLNAPlayResponseNotification object:nil];
+}
+
+- (void)upnpNextResponse {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMRDLNANextResponseNotification object:nil];
+}
+
+- (void)upnpSeekResponse {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMRDLNASeekResponseNotification object:nil];
+}
+
+- (void)upnpStopResponse {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMRDLNAStopResponseNotification object:nil];
+}
+
+- (void)upnpPauseResponse {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMRDLNAPauseResponseNotification object:nil];
+}
+
+- (void)upnpPreviousResponse {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMRDLNAPreviousResponseNotification object:nil];
+}
+
+- (void)upnpSetVolumeResponse {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMRDLNASetVolumeResponseNotification object:nil];
+}
+
+- (void)upnpGetVolumeResponse:(NSString *)volume {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMRDLNAGetVolumeResponseNotification object:volume];
+}
+
+- (void)upnpGetPositionInfoResponse:(CLUPnPAVPositionInfo *)info {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMRDLNAGetPositionInfoResponseNotification object:info];
+}
+
+- (void)upnpSetNextAVTransportURIResponse {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMRDLNASetNextAVTransportURIResponseNotification object:nil];
+}
+
+- (void)upnpUndefinedResponse:(NSString *)resXML postXML:(NSString *)postXML {
+    NSMutableDictionary *dict = @{}.mutableCopy;
+    dict[@"resXML"] = resXML;
+    dict[@"postXML"] = postXML;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kMRDLNAUndefinedResponseNotification object:dict];
 }
 
 #pragma mark Set&Get

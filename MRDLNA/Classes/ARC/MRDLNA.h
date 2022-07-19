@@ -9,6 +9,35 @@
 #import "CLUPnP.h"
 #import "CLUPnPDevice.h"
 
+//- (void)upnpSetAVTransportURIResponse;  // 设置url响应
+//- (void)upnpUndefinedResponse:(NSString *)resXML postXML:(NSString *)postXML;
+//
+//- (void)upnpPlayResponse;                   // 播放响应
+//- (void)upnpPauseResponse;                  // 暂停响应
+//- (void)upnpStopResponse;                   // 停止投屏
+//- (void)upnpSeekResponse;                   // 跳转响应
+//- (void)upnpPreviousResponse;               // 以前的响应
+//- (void)upnpNextResponse;                   // 下一个响应
+//- (void)upnpSetVolumeResponse;              // 设置音量响应
+//- (void)upnpSetNextAVTransportURIResponse;  // 设置下一个url响应
+//- (void)upnpGetVolumeResponse:(NSString *)volume;                   // 获取音频信息
+//- (void)upnpGetPositionInfoResponse:(CLUPnPAVPositionInfo *)info;   // 获取播放进度
+
+extern NSString *const kMRDLNAGetTransportInfoResponseNotification;
+extern NSString *const kMRDLNASetAVTransportURINotification;
+extern NSString *const kMRDLNAPlayResponseNotification;
+extern NSString *const kMRDLNAPauseResponseNotification;
+extern NSString *const kMRDLNAStopResponseNotification;
+extern NSString *const kMRDLNASeekResponseNotification;
+extern NSString *const kMRDLNAPreviousResponseNotification;
+extern NSString *const kMRDLNANextResponseNotification;
+extern NSString *const kMRDLNASetVolumeResponseNotification;
+extern NSString *const kMRDLNAGetVolumeResponseNotification;
+extern NSString *const kMRDLNASetNextAVTransportURIResponseNotification;
+extern NSString *const kMRDLNAGetPositionInfoResponseNotification;
+extern NSString *const kMRDLNAUndefinedResponseNotification;
+
+
 @protocol DLNADelegate <NSObject>
 
 @optional
@@ -24,6 +53,8 @@
  */
 - (void)dlnaStartPlay;
 
+
+
 @end
 
 @interface MRDLNA : NSObject
@@ -35,6 +66,8 @@
 @property(nonatomic,copy) NSString *playUrl;
 
 @property(nonatomic,assign) NSInteger searchTime;
+
+@property(nonatomic,strong) CLUPnPRenderer *render;         //MDR渲染器
 
 /**
  单例
