@@ -180,7 +180,7 @@ NSString *const kMRDLNAUndefinedResponseNotification = @"kMRDLNAUndefinedRespons
 //    NSLog(@"%@ === %@", info.currentTransportState, info.currentTransportStatus);
     NSString *state = [info.currentTransportState lowercaseString];
     if (!([state isEqualToString:@"playing"] || [info.currentTransportState isEqualToString:@"transitioning"])) {
-        if (![info.currentTransportState isEqualToString:@"paused_playback"]) {
+        if (![state isEqualToString:@"paused_playback"]) {
             [self.render play];
         }
     }
