@@ -66,7 +66,7 @@ extern NSString *const kMRDLNAUndefinedResponseNotification;
 @property(nonatomic,copy) NSString *playUrl;
 
 @property(nonatomic,assign) NSInteger searchTime;
-
+@property(nonatomic,copy) NSString *transportState;
 @property(nonatomic,strong) CLUPnPRenderer *render;         //MDR渲染器
 
 /**

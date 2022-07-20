@@ -178,11 +178,13 @@ NSString *const kMRDLNAUndefinedResponseNotification = @"kMRDLNAUndefinedRespons
 
 - (void)upnpGetTransportInfoResponse:(CLUPnPTransportInfo *)info{
 //    NSLog(@"%@ === %@", info.currentTransportState, info.currentTransportStatus);
-    if (!([info.currentTransportState isEqualToString:@"PLAYING"] || [info.currentTransportState isEqualToString:@"TRANSITIONING"])) {
-        if (![info.currentTransportState isEqualToString:@"PAUSED_PLAYBACK"]) {
+    NSString *state = [info.currentTransportState lowercaseString];
+    if (!([state isEqualToString:@"playing"] || [info.currentTransportState isEqualToString:@"transitioning"])) {
+        if (![info.currentTransportState isEqualToString:@"paused_playback"]) {
             [self.render play];
         }
     }
+    self.transportState = state;
     [[NSNotificationCenter defaultCenter] postNotificationName:kMRDLNAGetTransportInfoResponseNotification object:info];
 }
 
