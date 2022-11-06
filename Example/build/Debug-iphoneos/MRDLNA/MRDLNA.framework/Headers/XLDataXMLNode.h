@@ -75,7 +75,7 @@ _EXTERN const char* kGDataXMLXPathDefaultNamespacePrefix _INITIALIZE_AS("_def_ns
 //  + (id)nodeConsumingXMLNode:(xmlNodePtr)theXMLNode;
 
 @class NSArray, NSDictionary, NSError, NSString, NSURL;
-@class GDataXMLElement, GDataXMLDocument;
+@class XLDataXMLElement, XLDataXMLDocument;
 
 enum {
   GDataXMLInvalidKind = 0,
@@ -118,9 +118,9 @@ typedef NSUInteger GDataXMLNodeKind;
   NSArray *cachedAttributes_;
 }
 
-+ (GDataXMLElement *)elementWithName:(NSString *)name;
-+ (GDataXMLElement *)elementWithName:(NSString *)name stringValue:(NSString *)value;
-+ (GDataXMLElement *)elementWithName:(NSString *)name URI:(NSString *)value;
++ (XLDataXMLElement *)elementWithName:(NSString *)name;
++ (XLDataXMLElement *)elementWithName:(NSString *)name stringValue:(NSString *)value;
++ (XLDataXMLElement *)elementWithName:(NSString *)name URI:(NSString *)value;
 
 + (id)attributeWithName:(NSString *)name stringValue:(NSString *)value;
 + (id)attributeWithName:(NSString *)name URI:(NSString *)attributeURI stringValue:(NSString *)value;
@@ -166,7 +166,7 @@ typedef NSUInteger GDataXMLNodeKind;
 @end
 
 
-@interface GDataXMLElement : XLDataXMLNode
+@interface XLDataXMLElement : XLDataXMLNode
 
 - (id)initWithXMLString:(NSString *)str error:(NSError **)error;
 
@@ -189,16 +189,16 @@ typedef NSUInteger GDataXMLNodeKind;
 
 @end
 
-@interface GDataXMLDocument : NSObject {
+@interface XLDataXMLDocument : NSObject {
 @protected
   xmlDoc* xmlDoc_; // strong; always free'd in dealloc
 }
 
 - (id)initWithXMLString:(NSString *)str options:(unsigned int)mask error:(NSError **)error;
 - (id)initWithData:(NSData *)data options:(unsigned int)mask error:(NSError **)error;
-- (id)initWithRootElement:(GDataXMLElement *)element;
+- (id)initWithRootElement:(XLDataXMLElement *)element;
 
-- (GDataXMLElement *)rootElement;
+- (XLDataXMLElement *)rootElement;
 
 - (NSData *)XMLData;
 

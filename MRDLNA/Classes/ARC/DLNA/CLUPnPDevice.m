@@ -35,7 +35,7 @@
 - (void)setArray:(NSArray *)array{
     @autoreleasepool {
         for (int j = 0; j < [array count]; j++) {
-            GDataXMLElement *ele = [array objectAtIndex:j];
+            XLDataXMLElement *ele = [array objectAtIndex:j];
             if ([ele.name isEqualToString:@"friendlyName"]) {
                 self.friendlyName = [ele stringValue];
             }
@@ -45,7 +45,7 @@
             if ([ele.name isEqualToString:@"serviceList"]) {
                 NSArray *serviceListArray = [ele children];
                 for (int k = 0; k < [serviceListArray count]; k++) {
-                    GDataXMLElement *listEle = [serviceListArray objectAtIndex:k];
+                    XLDataXMLElement *listEle = [serviceListArray objectAtIndex:k];
                     if ([listEle.name isEqualToString:@"service"]) {
                         NSString *serviceString = [listEle stringValue];
                         if ([serviceString rangeOfString:serviceType_AVTransport].location != NSNotFound || [serviceString rangeOfString:serviceId_AVTransport].location != NSNotFound) {
@@ -76,7 +76,7 @@
 - (void)setArray:(NSArray *)array{
     @autoreleasepool {
         for (int m = 0; m < array.count; m++) {
-            GDataXMLElement *needEle = [array objectAtIndex:m];
+            XLDataXMLElement *needEle = [array objectAtIndex:m];
             if ([needEle.name isEqualToString:@"serviceType"]) {
                 self.serviceType = [needEle stringValue];
             }

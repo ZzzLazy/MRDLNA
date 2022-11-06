@@ -144,11 +144,11 @@
 #pragma mark -
 #pragma mark -- 动作响应 --
 - (void)parseRequestResponseData:(NSData *)data postXML:(NSString *)postXML{
-    GDataXMLDocument *xmlDoc = [[GDataXMLDocument alloc] initWithData:data options:0 error:nil];
-    GDataXMLElement *xmlEle = [xmlDoc rootElement];
+    XLDataXMLDocument *xmlDoc = [[XLDataXMLDocument alloc] initWithData:data options:0 error:nil];
+    XLDataXMLElement *xmlEle = [xmlDoc rootElement];
     NSArray *bigArray = [xmlEle children];
     for (int i = 0; i < [bigArray count]; i++) {
-        GDataXMLElement *element = [bigArray objectAtIndex:i];
+        XLDataXMLElement *element = [bigArray objectAtIndex:i];
         NSArray *needArr = [element children];
         if ([[element name] hasSuffix:@"Body"]) {
             [self resultsWith:needArr postXML:postXML];
@@ -160,7 +160,7 @@
 
 - (void)resultsWith:(NSArray *)array postXML:(NSString *)postXML{
     for (int i = 0; i < array.count; i++) {
-        GDataXMLElement *ele = [array objectAtIndex:i];
+        XLDataXMLElement *ele = [array objectAtIndex:i];
         if ([[ele name] hasSuffix:@"SetAVTransportURIResponse"]) {
             [self _SetAVTransportURIResponse];
             [self getTransportInfo];
@@ -250,7 +250,7 @@
 
 - (void)_GetVolumeSuccessWith:(NSArray *)array{
     for (int j = 0; j < array.count; j++) {
-        GDataXMLElement *eleXml = [array objectAtIndex:j];
+        XLDataXMLElement *eleXml = [array objectAtIndex:j];
         if ([[eleXml name] isEqualToString:@"CurrentVolume"]) {
             if ([self.delegate respondsToSelector:@selector(upnpGetVolumeResponse:)]) {
                 [self.delegate upnpGetVolumeResponse:[eleXml stringValue]];

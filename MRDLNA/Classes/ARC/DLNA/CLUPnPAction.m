@@ -13,7 +13,7 @@
 @interface CLUPnPAction (){
         NSString    *_action;
 }
-@property (nonatomic, strong) GDataXMLElement *XMLElement;
+@property (nonatomic, strong) XLDataXMLElement *XMLElement;
 
 @end
 
@@ -25,7 +25,7 @@
         _action = action;
         _serviceType = CLUPnPServiceAVTransport;
         NSString *name = [NSString stringWithFormat:@"u:%@", _action];
-        self.XMLElement = [GDataXMLElement elementWithName:name];
+        self.XMLElement = [XLDataXMLElement elementWithName:name];
     }
     return self;
 }
@@ -35,7 +35,7 @@
 }
 
 - (void)setArgumentValue:(NSString *)value forName:(NSString *)name{
-    [self.XMLElement addChild:[GDataXMLElement elementWithName:name stringValue:value]];
+    [self.XMLElement addChild:[XLDataXMLElement elementWithName:name stringValue:value]];
 }
 
 - (NSString *)getServiceType{
@@ -75,11 +75,11 @@
  */
 
 - (NSString *)getPostXMLFile{
-    GDataXMLElement *xmlEle = [GDataXMLElement elementWithName:@"s:Envelope"];
-    [xmlEle addChild:[GDataXMLElement attributeWithName:@"s:encodingStyle" stringValue:@"http://schemas.xmlsoap.org/soap/encoding/"]];
-    [xmlEle addChild:[GDataXMLElement attributeWithName:@"xmlns:s" stringValue:@"http://schemas.xmlsoap.org/soap/envelope/"]];
-    [xmlEle addChild:[GDataXMLElement attributeWithName:@"xmlns:u" stringValue:[self getServiceType]]];
-    GDataXMLElement *command = [GDataXMLElement elementWithName:@"s:Body"];
+    XLDataXMLElement *xmlEle = [XLDataXMLElement elementWithName:@"s:Envelope"];
+    [xmlEle addChild:[XLDataXMLElement attributeWithName:@"s:encodingStyle" stringValue:@"http://schemas.xmlsoap.org/soap/encoding/"]];
+    [xmlEle addChild:[XLDataXMLElement attributeWithName:@"xmlns:s" stringValue:@"http://schemas.xmlsoap.org/soap/envelope/"]];
+    [xmlEle addChild:[XLDataXMLElement attributeWithName:@"xmlns:u" stringValue:[self getServiceType]]];
+    XLDataXMLElement *command = [XLDataXMLElement elementWithName:@"s:Body"];
     
 //    GDataXMLElement *CurrentURIMetaDataEle = [self.XMLElement elementsForName:@"CurrentURIMetaData"][0];
     

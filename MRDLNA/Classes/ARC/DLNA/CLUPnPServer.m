@@ -252,12 +252,12 @@ withFilterContext:(nullable id)filterContext{
                     device = [[CLUPnPDevice alloc] init];
                     device.loaction = URL;
                     device.uuid = usn;
-                    GDataXMLDocument *xmlDoc = [[GDataXMLDocument alloc] initWithData:data options:0 error:nil];
-                    GDataXMLElement *xmlEle = [xmlDoc rootElement];
+                    XLDataXMLDocument *xmlDoc = [[XLDataXMLDocument alloc] initWithData:data options:0 error:nil];
+                    XLDataXMLElement *xmlEle = [xmlDoc rootElement];
                     NSArray *xmlArray = [xmlEle children];
                     
                     for (int i = 0; i < [xmlArray count]; i++) {
-                        GDataXMLElement *element = [xmlArray objectAtIndex:i];
+                        XLDataXMLElement *element = [xmlArray objectAtIndex:i];
                         if ([[element name] isEqualToString:@"device"]) {
                             [device setArray:[element children]];
                             continue;

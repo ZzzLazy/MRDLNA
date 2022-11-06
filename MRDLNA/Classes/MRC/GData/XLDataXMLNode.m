@@ -17,7 +17,7 @@
 #import "XLDataXMLNode.h"
 
 @class NSArray, NSDictionary, NSError, NSString, NSURL;
-@class GDataXMLElement, GDataXMLDocument;
+@class XLDataXMLElement, XLDataXMLDocument;
 
 
 static const int kGDataXMLParseOptions = (XML_PARSE_NOCDATA | XML_PARSE_NOBLANKS);
@@ -136,7 +136,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
 
 @end
 
-@interface GDataXMLElement (PrivateMethods)
+@interface XLDataXMLElement (PrivateMethods)
 
 + (void)fixUpNamespacesForNode:(xmlNodePtr)nodeToFix
             graftingToTreeNode:(xmlNodePtr)graftPointNode;
@@ -158,7 +158,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
 // the namespace prefix and replace it with a proper ns
 // pointer.
 
-+ (GDataXMLElement *)elementWithName:(NSString *)name {
++ (XLDataXMLElement *)elementWithName:(NSString *)name {
 
   xmlNodePtr theNewNode = xmlNewNode(NULL, // namespace
                                      GDataGetXMLString(name));
@@ -169,7 +169,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   return nil;
 }
 
-+ (GDataXMLElement *)elementWithName:(NSString *)name stringValue:(NSString *)value {
++ (XLDataXMLElement *)elementWithName:(NSString *)name stringValue:(NSString *)value {
 
   xmlNodePtr theNewNode = xmlNewNode(NULL, // namespace
                                      GDataGetXMLString(name));
@@ -191,7 +191,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   return nil;
 }
 
-+ (GDataXMLElement *)elementWithName:(NSString *)name URI:(NSString *)theURI {
++ (XLDataXMLElement *)elementWithName:(NSString *)name URI:(NSString *)theURI {
 
   // since we don't know a prefix yet, shove in the whole URI; we'll look for
   // a proper namespace ptr later when addChild calls fixUpNamespacesForNode
@@ -272,7 +272,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   Class theClass;
 
   if (theXMLNode->type == XML_ELEMENT_NODE) {
-    theClass = [GDataXMLElement class];
+    theClass = [XLDataXMLElement class];
   } else {
     theClass = [XLDataXMLNode class];
   }
@@ -291,7 +291,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
 + (id)nodeBorrowingXMLNode:(xmlNodePtr)theXMLNode {
   Class theClass;
   if (theXMLNode->type == XML_ELEMENT_NODE) {
-    theClass = [GDataXMLElement class];
+    theClass = [XLDataXMLElement class];
   } else {
     theClass = [XLDataXMLNode class];
   }
@@ -898,7 +898,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
 
 
 
-@implementation GDataXMLElement
+@implementation XLDataXMLElement
 
 - (id)initWithXMLString:(NSString *)str error:(NSError **)error {
   self = [super init];
@@ -1594,16 +1594,16 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
 @end
 
 
-@interface GDataXMLDocument (PrivateMethods)
+@interface XLDataXMLDocument (PrivateMethods)
 - (void)addStringsCacheToDoc;
 @end
 
-@implementation GDataXMLDocument
+@implementation XLDataXMLDocument
 
 - (id)initWithXMLString:(NSString *)str options:(unsigned int)mask error:(NSError **)error {
 
   NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
-  GDataXMLDocument *doc = [self initWithData:data options:mask error:error];
+  XLDataXMLDocument *doc = [self initWithData:data options:mask error:error];
   return doc;
 }
 
@@ -1637,7 +1637,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
   return self;
 }
 
-- (id)initWithRootElement:(GDataXMLElement *)element {
+- (id)initWithRootElement:(XLDataXMLElement *)element {
 
   self = [super init];
   if (self) {
@@ -1704,13 +1704,13 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
 
 #pragma mark -
 
-- (GDataXMLElement *)rootElement {
-  GDataXMLElement *element = nil;
+- (XLDataXMLElement *)rootElement {
+  XLDataXMLElement *element = nil;
 
   if (xmlDoc_ != NULL) {
     xmlNodePtr rootNode = xmlDocGetRootElement(xmlDoc_);
     if (rootNode) {
-      element = [GDataXMLElement nodeBorrowingXMLNode:rootNode];
+      element = [XLDataXMLElement nodeBorrowingXMLNode:rootNode];
     }
   }
   return element;
@@ -1772,7 +1772,7 @@ static xmlChar *SplitQNameReverse(const xmlChar *qname, xmlChar **prefix) {
                 namespaces:(NSDictionary *)namespaces
                      error:(NSError **)error {
   if (xmlDoc_ != NULL) {
-    XLDataXMLNode *docNode = [GDataXMLElement nodeBorrowingXMLNode:(xmlNodePtr)xmlDoc_];
+    XLDataXMLNode *docNode = [XLDataXMLElement nodeBorrowingXMLNode:(xmlNodePtr)xmlDoc_];
     NSArray *array = [docNode nodesForXPath:xpath
                                  namespaces:namespaces
                                       error:error];

@@ -14,7 +14,7 @@
 - (void)setArray:(NSArray *)array{
     @autoreleasepool {
         for (int m = 0; m < array.count; m++) {
-            GDataXMLElement *needEle = [array objectAtIndex:m];
+            XLDataXMLElement *needEle = [array objectAtIndex:m];
             if ([needEle.name isEqualToString:@"TrackDuration"]) {
                 self.trackDuration = [[needEle stringValue] durationTime];
             }
@@ -35,7 +35,7 @@
 - (void)setArray:(NSArray *)array{
     @autoreleasepool {        
         for (int m = 0; m < array.count; m++) {
-            GDataXMLElement *needEle = [array objectAtIndex:m];
+            XLDataXMLElement *needEle = [array objectAtIndex:m];
             if ([needEle.name isEqualToString:@"CurrentTransportState"]) {
                 self.currentTransportState = [needEle stringValue];
             }
