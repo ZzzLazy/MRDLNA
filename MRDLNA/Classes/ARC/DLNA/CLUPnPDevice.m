@@ -7,7 +7,7 @@
 //
 
 #import "CLUPnP.h"
-#import "GDataXMLNode.h"
+#import "XLDataXMLNode.h"
 
 @implementation CLUPnPDevice
 

@@ -95,7 +95,7 @@ enum {
 
 typedef NSUInteger GDataXMLNodeKind;
 
-@interface GDataXMLNode : NSObject {
+@interface XLDataXMLNode : NSObject {
 @protected
   // NSXMLNodes can have a namespace URI or prefix even if not part
   // of a tree; xmlNodes cannot.  When we create nodes apart from
@@ -134,7 +134,7 @@ typedef NSUInteger GDataXMLNodeKind;
 
 - (NSUInteger)childCount;
 - (NSArray *)children;
-- (GDataXMLNode *)childAtIndex:(unsigned)index;
+- (XLDataXMLNode *)childAtIndex:(unsigned)index;
 
 - (NSString *)localName;
 - (NSString *)name;
@@ -166,24 +166,24 @@ typedef NSUInteger GDataXMLNodeKind;
 @end
 
 
-@interface GDataXMLElement : GDataXMLNode
+@interface GDataXMLElement : XLDataXMLNode
 
 - (id)initWithXMLString:(NSString *)str error:(NSError **)error;
 
 - (NSArray *)namespaces;
 - (void)setNamespaces:(NSArray *)namespaces;
-- (void)addNamespace:(GDataXMLNode *)aNamespace;
+- (void)addNamespace:(XLDataXMLNode *)aNamespace;
 
-- (void)addChild:(GDataXMLNode *)child;
-- (void)removeChild:(GDataXMLNode *)child;
+- (void)addChild:(XLDataXMLNode *)child;
+- (void)removeChild:(XLDataXMLNode *)child;
 
 - (NSArray *)elementsForName:(NSString *)name;
 - (NSArray *)elementsForLocalName:(NSString *)localName URI:(NSString *)URI;
 
 - (NSArray *)attributes;
-- (GDataXMLNode *)attributeForName:(NSString *)name;
-- (GDataXMLNode *)attributeForLocalName:(NSString *)name URI:(NSString *)attributeURI;
-- (void)addAttribute:(GDataXMLNode *)attribute;
+- (XLDataXMLNode *)attributeForName:(NSString *)name;
+- (XLDataXMLNode *)attributeForLocalName:(NSString *)name URI:(NSString *)attributeURI;
+- (void)addAttribute:(XLDataXMLNode *)attribute;
 
 - (NSString *)resolvePrefixForNamespaceURI:(NSString *)namespaceURI;
 

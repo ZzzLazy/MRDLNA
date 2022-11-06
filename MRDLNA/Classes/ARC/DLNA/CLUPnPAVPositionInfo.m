@@ -7,7 +7,7 @@
 //
 
 #import "CLUPnPAVPositionInfo.h"
-#import "GDataXMLNode.h"
+#import "XLDataXMLNode.h"
 
 @implementation CLUPnPAVPositionInfo
 

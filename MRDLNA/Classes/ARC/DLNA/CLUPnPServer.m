@@ -9,7 +9,7 @@
 #import "CLUPnP.h"
 #import "CLUPnPServer.h"
 #import "GCDAsyncUdpSocket.h"
-#import "GDataXMLNode.h"
+#import "XLDataXMLNode.h"
 
 @interface CLUPnPServer ()<GCDAsyncUdpSocketDelegate>
 

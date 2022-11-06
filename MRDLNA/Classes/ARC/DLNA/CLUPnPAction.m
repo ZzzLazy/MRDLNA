@@ -7,7 +7,7 @@
 //
 
 #import "CLUPnPAction.h"
-#import "GDataXMLNode.h"
+#import "XLDataXMLNode.h"
 #import "CLUPnP.h"
 
 @interface CLUPnPAction (){

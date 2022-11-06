@@ -1,0 +1,7 @@
+Target dependency graph (3 targets)
+CocoaAsyncSocket in Pods, no dependencies
+MRDLNA in Pods, depends on:
+CocoaAsyncSocket in Pods (explicit)
+Pods-MRDLNA_Example in Pods, depends on:
+CocoaAsyncSocket in Pods (explicit)
+MRDLNA in Pods (explicit)
